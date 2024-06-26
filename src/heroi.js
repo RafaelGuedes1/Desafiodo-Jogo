@@ -1,3 +1,5 @@
+const readline = require('readline');
+
 // Classe Heroi
 class Heroi {
   // Construtor para inicializar as propriedades da classe
@@ -34,14 +36,23 @@ class Heroi {
   }
 }
 
-// Criando instâncias de heróis com diferentes tipos
-const mago = new Heroi('Frajola', 100, 'mago');
-const guerreiro = new Heroi('pepa ping', 87, 'guerreiro');
-const monge = new Heroi('Goku', 35, 'monge');
-const ninja = new Heroi('Naruto', 17, 'ninja');
+// Função para criar herói com base na entrada do usuário
+function criarHeroi() {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
 
-// Chamada do método atacar para cada herói
-mago.atacar();       // O mago atacou usando magia
-guerreiro.atacar();  // O guerreiro atacou usando espada
-monge.atacar();      // O monge atacou usando artes marciais
-ninja.atacar();      // O ninja atacou usando shuriken
+  rl.question("Digite o nome do herói: ", function(nome) {
+    rl.question("Digite a idade do herói: ", function(idade) {
+      rl.question("Escolha o tipo de herói (mago, guerreiro, monge, ninja): ", function(tipo) {
+        const heroi = new Heroi(nome, parseInt(idade), tipo.toLowerCase());
+        heroi.atacar();
+        rl.close();
+      });
+    });
+  });
+}
+
+// Criando o herói com base na entrada do usuário
+criarHeroi();
